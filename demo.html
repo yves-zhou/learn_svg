@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>svg动画</title>
+    <style>
+        html,body,svg { width:100%;height:100%;margin:0;padding:0; }
+    </style>
+</head>
+<body>
+<svg viewBox="-200 -200 800 800" style="background-color:#333;">
+
+
+
+    <defs>
+        <filter id="f2" >
+            <feGaussianBlur in="SourceGraphic" stdDeviation="1" />
+        </filter>
+    </defs>
+    <circle id="cir" cx="0" cy="0" r="2" fill="white" filter="url(#f2)" >
+        <animate id="show"
+                 attributeType="CSS"
+                 attributeName="opacity"
+                 from="0"
+                 to="1"
+                 dur=".35s"
+                 fill="freeze"
+                 begin="0s"
+        ></animate>
+        <animateMotion
+                id="trajectory_move"
+                dur="2.35s"
+                begin="show.end"
+                fill="freeze"
+                repeatCount="1"
+        >
+            <mpath xlink:href="#motion_path"></mpath>
+        </animateMotion>
+        <animate id="cir_hide"
+                 attributeType="CSS"
+                 attributeName="opacity"
+                 from="1"
+                 to="0"
+                 dur=".5s"
+                 fill="freeze"
+                 begin="trajectory_move.end"
+        ></animate>
+    </circle>
+    <path id="motion_path" d="M 0 0 L 67 -80 L 239 -80 L 306 0 L 153 190 L 0 0" stroke="white" stroke-width=".5" fill="none" style="stroke-dasharray: 869;stroke-dashoffset: 869;" >
+        <animate id="trajectory_motion"
+                 attributeType="CSS"
+                 attributeName="stroke-dashoffset"
+                 to="0"
+                 dur="2.35s"
+                 fill="freeze"
+                 begin="show.end"
+        ></animate>
+        <animate id="motion_hide"
+                 attributeType="CSS"
+                 attributeName="opacity"
+                 from="1"
+                 to="0"
+                 dur=".5s"
+                 fill="freeze"
+                 begin="trajectory_motion.end"
+        ></animate>
+    </path>
+    <defs>
+        <linearGradient id="lightGradient1" x1="0" y1="0" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#aeaeae">
+                <animate id="colorChange" attributeName="stop-color" values="#aeaeae; #616161" dur="0.6s" fill="freeze" begin="logo_show.end" />
+            </stop>
+            <stop offset="100%" stop-color="#616161">
+                <animate attributeName="stop-color" values="#616161; #aeaeae" dur="0.6s" fill="freeze" begin="logo_show.end" />
+            </stop>
+        </linearGradient>
+    </defs>
+    <polygon points="0 0 67 -80 239 -80 306 0 153 190" fill="url(#lightGradient1)" style="opacity:0;">
+        <animate id="logo_show"
+                 attributeType="CSS"
+                 attributeName="opacity"
+                 from="0"
+                 to="1"
+                 dur="0.1s"
+                 fill="freeze"
+                 begin="trajectory_motion.end"
+        ></animate>
+        <animate id="rotate1"
+                 attributeType="XML"
+                 attributeName="points"
+                 from="0 0 67 -80 239 -80 306 0 153 190"
+                 to="153 0 153 -80 153 -80 153 0 153 190"
+                 dur="0.5s"
+                 fill="freeze"
+                 begin="colorChange.end"
+        ></animate>
+    </polygon>
+
+
+    <g fill="#ffcf53">
+        <path d="M 153 0 L 153 -80 L 153 -80 L 153 0 L 153 190 L 153 0 M 153 10 L 153 112 L 153 10 L 153 0 L 153 88 L 153 0 L 153 10">
+            <animate id="rotate2"
+                     attributeType="XML"
+                     attributeName="d"
+                     from="M 153 0 L 153 -80 L 153 -80 L 153 0 L 153 190 L 153 0 M 153 10 L 153 112 L 153 10 L 153 0 L 153 88 L 153 0 L 153 10"
+                     to="M 0 0 L 67 -80 L 239 -80 L 306 0 L 153 190 L 0 0 M 68 10 L 153 112 L 235 10 L 225 0 L 153 88 L 78 0 L 68 10"
+                     dur="0.5s"
+                     fill="freeze"
+                     begin="rotate1.end"
+            ></animate>
+        </path>
+    </g>
+</svg>
+</body>
+</html>
