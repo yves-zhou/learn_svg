@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>svg动画</title>
+    <style>
+        html,body { width:100%;height:100%;margin:0;padding:0; }
+        svg{position:relative;top:10px;left:10px;}
+    </style>
+</head>
+<body style="background-color:#333;">
+<svg xmlns="http://www.w3.org/2000/svg" id="svg" width="530" height="500" viewBox="-105 -160 530 500">
+    <defs>
+        <filter id="f2" >
+            <feGaussianBlur in="SourceGraphic" stdDeviation="1" />
+        </filter>
+    </defs>
+    <circle id="cir" cx="0" cy="80" r="2" fill="white" filter="url(#f2)" style="opacity:0;" >
+        <animate id="show"
+                 attributeType="CSS"
+                 attributeName="opacity"
+                 from="0"
+                 to="1"
+                 dur=".35s"
+                 fill="freeze"
+                 begin="1s"
+        ></animate>
+        <animateMotion
+                id="trajectory_move"
+                dur="2.35s"
+                begin="show.end"
+                fill="freeze"
+                repeatCount="1"
+        >
+            <mpath xlink:href="#circle_path"></mpath>
+        </animateMotion>
+        <animate id="cir_hide"
+                 attributeType="CSS"
+                 attributeName="opacity"
+                 from="1"
+                 to="0"
+                 dur=".5s"
+                 fill="freeze"
+                 begin="trajectory_move.end"
+        ></animate>
+    </circle>
+    <defs>
+        <path id="circle_path" d="M 0 0 L 67 -80 L 239 -80 L 306 0 L 153 190 L 0 0"></path>
+    </defs>
+
+    <image xlink:href="http://pic.solux.cn/Mobile/00_2017/glory_rights/1303.png" x="-85" y="-117.7" width="395" height="361" style="opacity:0;transform:scale(1.4);">
+        <animate id="img_anim3" attributeType="CSS" attributeName="opacity" from="0" to="1" dur=".2s" fill="freeze" begin="img_anim2.end"></animate>
+    </image>
+
+    <image xlink:href="http://pic.solux.cn/Mobile/00_2017/glory_rights/1303.png" x="-70" y="-81.6" width="395" height="361" style="opacity:0;transform:scale(1.2);">
+        <animate id="img_anim2" attributeType="CSS" attributeName="opacity" from="0" to="1" dur=".2s" fill="freeze" begin="img_anim1.end"></animate>
+    </image>
+
+    <image xlink:href="http://pic.solux.cn/Mobile/00_2017/glory_rights/1303.png" x="-45" y="-45.5" width="395" height="361" style="opacity:0;transform:scale(1);">
+        <animate id="img_anim1" attributeType="CSS" attributeName="opacity" from="0" to="1" dur=".2s" fill="freeze" begin="rotate2.end"></animate>
+    </image>
+
+    <path id="motion_path" d="M 0 80 L 67 0 L 239 0 L 306 80 L 153 270 L 0 80" stroke="white" stroke-width=".5" fill="none" style="stroke-dasharray: 869;stroke-dashoffset: 869;" >
+        <animate id="trajectory_motion"
+                 attributeType="CSS"
+                 attributeName="stroke-dashoffset"
+                 to="0"
+                 dur="2.35s"
+                 fill="freeze"
+                 begin="show.end"
+        ></animate>
+        <animate id="motion_hide"
+                 attributeType="CSS"
+                 attributeName="opacity"
+                 from="1"
+                 to="0"
+                 dur=".5s"
+                 fill="freeze"
+                 begin="trajectory_motion.end"
+        ></animate>
+    </path>
+    <g fill="#ffcf53">
+        <path d="M 0 80 L 67 0 L 239 0 L 306 80 L 153 270 L 0 80 M 68 90 L 153 192 L 235 90 L 225 80 L 153 168 L 78 80 L 68 90" style="opacity:0;">
+            <animate id="rotate2"
+                     attributeType="CSS"
+                     attributeName="opacity"
+                     from="0"
+                     to="1"
+                     dur="0.5s"
+                     fill="freeze"
+                     begin="trajectory_motion.end"
+            ></animate>
+        </path>
+    </g>
+    <image xlink:href="http://pic.solux.cn/Mobile/00_2017/glory_rights/0904/blinks_01.png" x="15" y="-10" width="335" height="139" style="opacity:0;">
+        <animate id="blink1_anim1" attributeType="CSS" attributeName="opacity" from="0" to="1" dur=".1s" fill="freeze" begin="img_anim3.end"></animate>
+        <animate id="blink1_anim2" attributeType="CSS" attributeName="opacity" from="1" to="0" dur=".1s" fill="freeze" begin="blink1_anim1.end+0.5"></animate>
+        <animate id="blink1_anim3" attributeType="CSS" attributeName="opacity" from="0" to="1" dur=".1s" fill="freeze" begin="blink2_anim1.end+0.5"></animate>
+        <animate id="blink1_anim4" attributeType="CSS" attributeName="opacity" from="1" to="0" dur=".1s" fill="freeze" begin="blink1_anim3.end+0.5"></animate>
+        <animate id="blink1_anim5" attributeType="CSS" attributeName="opacity" from="0" to="1" dur=".1s" fill="freeze" begin="blink2_anim3.end+0.5"></animate>
+    </image>
+    <image xlink:href="http://pic.solux.cn/Mobile/00_2017/glory_rights/0904/blinks_02.png" x="10" y="-24" width="335" height="139" style="opacity:0;">
+        <animate id="blink2_anim1" attributeType="CSS" attributeName="opacity" from="0" to="1" dur=".1s" fill="freeze" begin="blink1_anim1.end+0.5"></animate>
+        <animate id="blink2_anim2" attributeType="CSS" attributeName="opacity" from="1" to="0" dur=".1s" fill="freeze" begin="blink2_anim1.end+0.5"></animate>
+        <animate id="blink2_anim3" attributeType="CSS" attributeName="opacity" from="0" to="1" dur=".1s" fill="freeze" begin="blink1_anim3.end+0.5"></animate>
+        <animate id="blink2_anim4" attributeType="CSS" attributeName="opacity" from="1" to="0" dur=".1s" fill="freeze" begin="blink2_anim3.end+0.5"></animate>
+    </image>
+</svg>
+
+</body>
+</html>
